@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mochilas Artesanales en Cordón de Seda</title>
+
+  <style>
+    :root {
+      --bg: #f7f4ee;           /* Fondo beige cálido */
+      --card: #ffffff;         /* Fondo de tarjetas blanco */
+      --text: #2c2523;         /* Texto marrón oscuro elegante */
+      --muted: #786c66;        /* Texto secundario */
+      --accent: #b07d52;       /* Tono terracota/artesanal */
+      --accent-hover: #8c5e37;
+      --border: #e6dfd5;       /* Bordes suaves */
+      --whatsapp: #25d366;     /* Verde WhatsApp */
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(247, 244, 238, 0.9);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+    }
+
+    .search {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      outline: none;
+    }
+
+    .hero {
+      padding: 30px 0 10px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      color: var(--text);
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin: 0 auto 20px;
+      max-width: 650px;
+      line-height: 1.5;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    /* 📢 Estilos de Publicidad */
+    .banner-ad {
+      background: #efe8dc;
+      border: 2px dashed var(--accent);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0 30px;
+    }
+
+    .banner-ad span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .banner-ad h3 {
+      margin: 0 0 6px;
+      color: var(--text);
+    }
+
+    .banner-ad p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+
+    .imgWrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fdfbf7;
+    }
+
+    .imgWrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+
+    .name {
+      font-weight: 700;
+      font-size: 17px;
+      margin-top: 4px;
+    }
+
+    .description {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-top: auto;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-ws {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background: var(--whatsapp);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      display: inline-block;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 24px 0;
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="logo">🧵 Mochilas Silk & Art</div>
+      <div class="search">
+        <input id="searchInput" type="text" placeholder="🔍 Buscar por nombre o estilo..." />
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Mochilas Artesanales en Cordón de Seda</h1>
+    <p>Tejidas a mano con hilo y cordón de seda de alta calidad. Piezas únicas, suaves al tacto y duraderas que resaltan la elegancia del trabajo artesanal.</p>
+    
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterCategory('todas', this)">Todas</button>
+      <button class="filter-btn" onclick="filterCategory('Elegante', this)">Elegantes</button>
+      <button class="filter-btn" onclick="filterCategory('Casual', this)">Casual</button>
+      <button class="filter-btn" onclick="filterCategory('Mini', this)">Mini Mochilas</button>
+    </div>
+  </section>
+
+  <!-- 📢 BLOQUE DE PUBLICIDAD (Reemplazar con tu banner o código de Adsense) -->
+  <div class="banner-ad">
+    <span>Publicidad / Promoción Especial</span>
+    <h3>✨ ¡Envío gratis en compras mayores a $80!</h3>
+    <p>Pregunta por nuestros diseños personalizados y tejidos bajo pedido.</p>
+  </div>
+
+  <section class="grid" id="productGrid">
+    <!-- Productos renderizados con JS -->
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    © <span id="year"></span> Mochilas Artesanales en Cordón de Seda — Todos los derechos reservados.
+  </div>
+</footer>
+
+<script>
+  // Cambia esto por tu número de WhatsApp con código de país
+  const phoneWhatsApp = "573000000000";
+
+  // Catálogo de productos con descripciones
+  const products = [
+    {
+      id: 1,
+      name: "Mochila Seda Dorada Champagne",
+      category: "Elegante",
+      price: 65.00,
+      tag: "Edición Limitada ✨",
+      description: "Tejido tupido en cordón de seda satinado color champagne. Incluye forro interno e hilos metalizados.",
+      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 2,
+      name: "Mini Mochila Seda Rosa Pastel",
+      category: "Mini",
+      price: 45.00,
+      tag: "Más Pedida 🌸",
+      description: "Tamaño compacto tejido a mano. Ligera, suave al tacto y perfecta para salidas casuales o de noche.",
+      image: "https://images.unsplash.com/photo-1546938576-6e6a64f317cc?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 3,
+      name: "Mochila Artesanal Multicolor",
+      category: "Casual",
+      price: 58.00,
+      tag: "100% Hecho a mano 🎨",
+      description: "Combinación vibrante de hilos de seda en tonos tierra. Gran resistencia y textura acolchada única.",
+      image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 4,
+      name: "Mochila Seda Negra Azabache",
+      category: "Elegante",
+      price: 70.00,
+      description: "Elegancia atemporal. Tejida en cordón fino de seda negra con acabados y broches metálicos premium.",
+      image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=800&q=80"
+    }
+  ];
+
+  let currentCategory = "todas";
+  const grid = document.getElementById("productGrid");
+  const searchInput = document.getElementById("searchInput");
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function render() {
+    const query = searchInput.value.toLowerCase();
+    grid.innerHTML = "";
+
+    const filtered = products.filter(p => {
+      const matchesCategory = currentCategory === "todas" || p.category === currentCategory;
+      const matchesSearch = p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
+      return matchesCategory && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 40px 0;">No se encontraron mochilas que coincidan con tu búsqueda.</p>`;
+      return;
+    }
+
+    filtered.forEach(p => {
+      const message = encodeURIComponent(`Hola, me interesa encargar la *${p.name}* en cordón de seda (Precio: $${p.price.toFixed(2)}). ¿Me das información?`);
+      const wsUrl = `https://wa.me/${phoneWhatsApp}?text=${message}`;
+
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="imgWrap">
+          ${p.tag ? `<div class="tag">${p.tag}</div>` : ""}
+          <img src="${p.image}" alt="${p.name}" loading="lazy" />
+        </div>
+        <div class="name">${p.name}</div>
+        <p class="description">${p.description}</p>
+        <div class="price">$${p.price.toFixed(2)}</div>
+        <div class="actions">
+          <a class="btn-ws" href="${wsUrl}" target="_blank">Pedir por WhatsApp 📲</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function filterCategory(cat, btn) {
+    currentCategory = cat;
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    render();
+  }
+
+  searchInput.addEventListener("input", render);
+  render();
+</script>
+
+</body>
+</html>
